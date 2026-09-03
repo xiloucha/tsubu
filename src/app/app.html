@@ -5,6 +5,8 @@
   <p>My Energy</p>
 
 
+  <!-- DATE -->
+
   <div class="date-area">
 
     <div class="date-controls">
@@ -29,6 +31,160 @@
 
     </div>
 
+  </div>
+
+
+  <!-- BEAN TOTAL -->
+
+  <div class="total-controls">
+
+    <button
+      class="control-button"
+      (click)="removeBean()"
+    >
+      −
+    </button>
+
+    <span class="total-number">
+      {{ beans.length }}
+    </span>
+
+    <button
+      class="control-button"
+      (click)="addBean()"
+    >
+      ＋
+    </button>
+
+  </div>
+
+
+  <!-- FIRST SAVE -->
+
+  <div class="save-area save-first">
+
+    <button
+      class="save-button"
+      (click)="saveToday()"
+    >
+      SAVE TODAY
+    </button>
+
+    @if (saveMessage()) {
+
+      <p class="save-message">
+        SAVED
+      </p>
+
+    }
+
+  </div>
+
+
+  <!-- ENERGY -->
+
+  <div class="energy-area">
+
+    <section class="remaining-area">
+
+      <h2>REMAINING</h2>
+
+      <div
+        class="beans"
+        (dragover)="allowDrop($event)"
+        (drop)="returnDrop($event)"
+      >
+
+        @for (bean of beans; track $index) {
+
+          @if (!bean) {
+
+            <button
+              draggable="true"
+              (dragstart)="startDrag($index)"
+              (click)="useBean($index)"
+            >
+              <img
+                [src]="beanImage"
+                alt="bean"
+              >
+            </button>
+
+          }
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <div class="arrow">
+      →
+    </div>
+
+
+    <section class="used-area">
+
+      <h2>USED</h2>
+
+      <div
+        class="used-beans"
+        (dragover)="allowDrop($event)"
+        (drop)="dropBean($event)"
+      >
+
+        @for (bean of beans; track $index) {
+
+          @if (bean) {
+
+            <button
+              draggable="true"
+              (dragstart)="startDrag($index)"
+              (click)="returnBean($index)"
+            >
+              <img
+                [src]="beanImage"
+                alt="bean"
+              >
+            </button>
+
+          }
+
+        }
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- SECOND SAVE -->
+
+  <div class="save-area save-second">
+
+    <button
+      class="save-button"
+      (click)="saveToday()"
+    >
+      SAVE TODAY
+    </button>
+
+    @if (saveMessage()) {
+
+      <p class="save-message">
+        SAVED
+      </p>
+
+    }
+
+  </div>
+
+
+  <!-- CALENDAR -->
+
+  <div class="calendar-area">
 
     <button
       class="calendar-button"
@@ -103,6 +259,8 @@
   </div>
 
 
+  <!-- BEAN DESIGN -->
+
   <div class="bean-select">
 
     <button (click)="changeBean('bean1.png')">
@@ -120,120 +278,6 @@
     <button (click)="changeBean('bean4.png')">
       <img src="bean4.png" alt="豆4">
     </button>
-
-  </div>
-
-
-  <div class="total-controls">
-
-    <button
-      class="control-button"
-      (click)="removeBean()"
-    >
-      −
-    </button>
-
-    <span class="total-number">
-      {{ beans.length }}
-    </span>
-
-    <button
-      class="control-button"
-      (click)="addBean()"
-    >
-      ＋
-    </button>
-
-  </div>
-
-  <div class="save-area">
-
-    <button
-      class="save-button"
-      (click)="saveToday()"
-    >
-      SAVE TODAY
-    </button>
-  
-    @if (saveMessage()) {
-      <p class="save-message">
-        SAVED
-      </p>
-    }
-  
-  </div>
-
-  <div class="energy-area">
-
-    <section class="remaining-area">
-
-      <h2>REMAINING</h2>
-
-      <div
-        class="beans"
-        (dragover)="allowDrop($event)"
-        (drop)="returnDrop($event)"
-      >
-
-        @for (bean of beans; track $index) {
-
-          @if (!bean) {
-
-            <button
-              draggable="true"
-              (dragstart)="startDrag($index)"
-            >
-              <img
-                [src]="beanImage"
-                alt="bean"
-              >
-            </button>
-
-          }
-
-        }
-
-      </div>
-
-    </section>
-
-
-    <div class="arrow">
-      →
-    </div>
-
-
-    <section class="used-area">
-
-      <h2>USED</h2>
-
-      <div
-        class="used-beans"
-        (dragover)="allowDrop($event)"
-        (drop)="dropBean($event)"
-      >
-
-        @for (bean of beans; track $index) {
-
-          @if (bean) {
-
-            <button
-              draggable="true"
-              (dragstart)="startDrag($index)"
-            >
-              <img
-                [src]="beanImage"
-                alt="bean"
-              >
-            </button>
-
-          }
-
-        }
-
-      </div>
-
-    </section>
 
   </div>
 
